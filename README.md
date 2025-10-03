@@ -16,11 +16,11 @@ Different CLIs ship with their own system instructions, defaults, tools, and pro
 ## Demos
 - Streaming Ask (live spinner + per‑model blocks)
   
-  https://raw.githubusercontent.com/${USER}/multi-agentic-ai-cli/main/AskDemo.mp4
+  ![Ask Demo](AskDemo.gif)
 
 - AskColumns (two‑column summary with inline timings)
   
-  https://raw.githubusercontent.com/${USER}/multi-agentic-ai-cli/main/AskColumnsDemo.mp4
+  ![AskColumns Demo](AskColumnsDemo.gif)
 
 ## Requirements
 Tested on macOS (Apple Silicon) and zsh.
