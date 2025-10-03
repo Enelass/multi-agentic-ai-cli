@@ -7,27 +7,108 @@ Zsh functions to query multiple LLM CLIs in parallel:
 - copilot (GitHub Copilot CLI)
 - claude (Claude Code)
 
-Features
-- Parallel execution with a single spinner showing per-model status (⏳ → ✓)
-- Inline timing (seconds) printed in headers
-- Streaming `Ask` view and `AskColumns` two‑column summary (Codex|Gemini, Claude|Copilot, Flash solo)
-- CLI‑first, customizable headers (names/descriptions) and optional model display
+## Why this project
+Different CLIs ship with their own system instructions, defaults, tools, and prompting UX. Running multiple CLIs in parallel for the same prompt yields diverse answers and behaviors. This lets you:
+- Compare outputs and retain the best answer
+- Collate complementary parts into a richer result
+- Benefit from each CLI developer’s tailored setup (tools, context, defaults)
 
-Getting Started
-1. Source the script in `~/.zshrc`:
+## Demos
+- Streaming Ask (live spinner + per‑model blocks)
+  
+  https://raw.githubusercontent.com/${USER}/multi-agentic-ai-cli/main/AskDemo.mp4
+
+- AskColumns (two‑column summary with inline timings)
+  
+  https://raw.githubusercontent.com/${USER}/multi-agentic-ai-cli/main/AskColumnsDemo.mp4
+
+## Requirements
+Tested on macOS (Apple Silicon) and zsh.
+- zsh 5.9+
+- CLIs on PATH: `codex`, `gemini`, `copilot`, `claude`
+- API keys configured for each CLI (OpenAI/Anthropic/Google etc.)
+- ffmpeg (optional) to convert demos to MP4 (`brew install ffmpeg`)
+
+## Setup
+1. Clone and source:
    `[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh"`
-2. Ensure CLIs are installed and available on PATH: `codex`, `gemini`, `copilot`, `claude`.
-3. Configure API keys and models via your environment.
+2. Verify CLIs:
+   `which codex gemini copilot claude`
+3. Configure keys/models (env vars or CLI configs)
 
-Customization (env vars)
-- Names/descriptions: `ASK_NAME_CODEX`, `ASK_DESC_CODEX`, `ASK_NAME_GEMINI`, `ASK_DESC_GEMINI`, `ASK_NAME_FLASH`, `ASK_DESC_FLASH`, `ASK_NAME_COPILOT`, `ASK_DESC_COPILOT`, `ASK_NAME_CLAUDE`, `ASK_DESC_CLAUDE`
-- Models: `ASK_MODEL_CODEX`, `ASK_MODEL_GEMINI`, `ASK_MODEL_FLASH`, `ASK_MODEL_CLAUDE`
-- Header format: `ASK_HEADER_FORMAT=cli` or `ASK_HEADER_FORMAT=cli_model`
+## Usage
+- `Ask "Your prompt"` — parallel stream with spinner + per‑model timings
+- `AskColumns "Your prompt"` — two‑column summary (Codex|Gemini, Claude|Copilot, Flash solo)
 
-Usage
-- `Ask "Your prompt"` — live, parallel, spinner, per‑model blocks
-- `AskColumns "Your prompt"` — two‑column summary with inline timings
+## Personal account — suggested mix
+Keep the strongest defaults without corporate dependency:
+- Gemini CLI: Gemini Pro model (fast, general reasoning)
+  - `ASK_HEADER_FORMAT=cli_model ASK_MODEL_GEMINI="gemini-pro"`
+- GitHub Copilot CLI: GPT‑5 for coding; fallback Claude‑4 when unspecified
+  - `ASK_MODEL_COPILOT="gpt-5"`
+  - Configure Copilot’s default model to `claude-4` when none specified via Copilot settings (varies by account)
+- Optionally enable Claude Code or Codex if you have subscriptions:
+  - `ASK_MODEL_CODEX="gpt-5"` (OpenAI)
+  - `ASK_MODEL_CLAUDE="claude-4"` (Anthropic)
 
-Notes
-- Timing uses file mtime minus start time (seconds).
-- If a CLI is missing, its section may be blank; install and configure CLIs as needed.
+Example:
+```
+export ASK_HEADER_FORMAT=cli_model
+export ASK_MODEL_GEMINI="gemini-pro"
+export ASK_MODEL_COPILOT="gpt-5"
+# Optional
+export ASK_MODEL_CLAUDE="claude-4"
+export ASK_MODEL_CODEX="gpt-5"
+```
+
+## Corporate accounts — full mix (LiteLLM compatible)
+When CLIs are routed via a corporate gateway (e.g., LiteLLM), all CLIs can be used safely:
+- Point CLIs to the corporate base URL and models
+- Keys can be tokenized via Keychain/SSO
+
+Example:
+```
+export ASK_HEADER_FORMAT=cli_model
+# Corp base URL
+export OPENAI_API_BASE="https://api.studio.genai.cba"
+export OPENAI_BASE_URL="https://api.studio.genai.cba"
+export ANTHROPIC_BASE_URL="https://api.studio.genai.cba"
+export GOOGLE_GEMINI_BASE_URL="https://api.studio.genai.cba"
+# Models
+export ASK_MODEL_CODEX="gpt-5"
+export ASK_MODEL_GEMINI="gemini-pro"
+export ASK_MODEL_FLASH="gemini-2.0-flash-001"
+export ASK_MODEL_COPILOT="gpt-5"
+export ASK_MODEL_CLAUDE="claude-4"
+```
+
+## Workflow Diagram
+```mermaid
+flowchart TD
+    A[User Prompt] --> B[Ask (parallel)]
+    B --> C{Launch CLIs}
+    C --> C1[codex]
+    C --> C2[gemini]
+    C --> C3[gemini flash]
+    C --> C4[copilot]
+    C --> C5[claude]
+    C1 --> D1[Spinner updates ⏳ → ✓]
+    C2 --> D1
+    C3 --> D1
+    C4 --> D1
+    C5 --> D1
+    D1 --> E[Per‑model block with timing]
+    E --> F[AskColumns (two‑column summary)]
+    F --> G[Compare, retain, or collate]
+```
+
+## Customization
+Top of `scripts/zsh_ask.sh`:
+- CLI names + descriptions
+- Models per CLI
+- Header format (`cli` or `cli_model`)
+
+## Notes
+- Timing in seconds uses start time vs output file mtime.
+- If terminal is narrow, AskColumns header falls back to non‑padded header to avoid cropping.
+- Copilot output may include tool runs; it is captured and summarized like others.
