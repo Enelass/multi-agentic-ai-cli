@@ -147,3 +147,6 @@ Top of `scripts/zsh_ask.sh`:
 - Timing in seconds uses start time vs output file mtime.
 - If terminal is narrow, AskColumns header falls back to non‑padded header to avoid cropping.
 - Copilot output may include tool runs; it is captured and summarized like others.
+
+## TODO
+- Add a preflight check to verify required CLIs exist and work (codex, gemini, copilot, claude), with clear diagnostics and guidance if any are missing or misconfigured.
