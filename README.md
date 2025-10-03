@@ -36,6 +36,35 @@ Tested on macOS (Apple Silicon) and zsh.
    `which codex gemini copilot claude`
 3. Configure keys/models (env vars or CLI configs)
 
+## Quick Start
+- One‑time exports (personal setup):
+```
+export ASK_HEADER_FORMAT=cli_model
+# CLI names/descriptions (optional)
+export ASK_NAME_CODEX=codex;   export ASK_DESC_CODEX="OpenAI Codex CLI"
+export ASK_NAME_GEMINI=gemini; export ASK_DESC_GEMINI="Google Gemini CLI"
+export ASK_NAME_FLASH="gemini flash"; export ASK_DESC_FLASH="Google Gemini CLI"
+export ASK_NAME_COPILOT=copilot; export ASK_DESC_COPILOT="GitHub Copilot CLI"
+export ASK_NAME_CLAUDE=claude; export ASK_DESC_CLAUDE="Claude Code"
+# Models (personal)
+export ASK_MODEL_GEMINI="gemini-pro"
+export ASK_MODEL_COPILOT="gpt-5"
+# Optional subscriptions
+export ASK_MODEL_CODEX="gpt-5"
+export ASK_MODEL_CLAUDE="claude-4"
+```
+- Add to `~/.zshrc`:
+```
+[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh"
+```
+- Environment via `.env`:
+  - Copy `.env.example` to `.env`, customize values, then add to `~/.zshrc`:
+```
+set -a
+[ -f "$HOME/Github/multi-agentic-ai-cli/.env" ] && source "$HOME/Github/multi-agentic-ai-cli/.env"
+set +a
+```
+
 ## Usage
 - `Ask "Your prompt"` — parallel stream with spinner + per‑model timings
 - `AskColumns "Your prompt"` — two‑column summary (Codex|Gemini, Claude|Copilot, Flash solo)
@@ -80,6 +109,12 @@ export ASK_MODEL_GEMINI="gemini-pro"
 export ASK_MODEL_FLASH="gemini-2.0-flash-001"
 export ASK_MODEL_COPILOT="gpt-5"
 export ASK_MODEL_CLAUDE="claude-4"
+```
+- Optional: use `.env` for corp:
+```
+set -a
+[ -f "$HOME/Github/multi-agentic-ai-cli/.env" ] && source "$HOME/Github/multi-agentic-ai-cli/.env"
+set +a
 ```
 
 ## Workflow Diagram
