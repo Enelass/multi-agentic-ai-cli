@@ -16,11 +16,11 @@ Different CLIs ship with their own system instructions, defaults, tools, and pro
 ## Demos
 - Streaming Ask (live spinner + per‑model blocks)
   
-  ![Ask Demo](AskDemo.gif)
+  ![Ask Demo](assets/AskDemo.gif)
 
 - AskColumns (two‑column summary with inline timings)
   
-  ![AskColumns Demo](AskColumnsDemo.gif)
+  ![AskColumns Demo](assets/AskColumnsDemo.gif)
 
 ## Requirements
 Tested on macOS (Apple Silicon) and zsh.
