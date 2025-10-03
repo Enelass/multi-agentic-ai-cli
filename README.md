@@ -31,7 +31,7 @@ Tested on macOS (Apple Silicon) and zsh.
 
 ## Setup
 1. Clone and source:
-   `[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh"`
+   `[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh"`
 2. Verify CLIs:
    `which codex gemini copilot claude`
 3. Configure keys/models (env vars or CLI configs)
@@ -55,7 +55,7 @@ export ASK_MODEL_CLAUDE="claude-4"
 ```
 - Add to `~/.zshrc`:
 ```
-[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/zsh_ask.sh"
+[[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh"
 ```
 - Environment via `.env`:
   - Copy `.env.example` to `.env`, customize values, then add to `~/.zshrc`:
@@ -138,7 +138,7 @@ flowchart TD
 ```
 
 ## Customization
-Top of `scripts/zsh_ask.sh`:
+Top of `scripts/multi-agent-ask.sh`:
 - CLI names + descriptions
 - Models per CLI
 - Header format (`cli` or `cli_model`)
