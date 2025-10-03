@@ -57,13 +57,6 @@ export ASK_MODEL_CLAUDE="claude-4"
 ```
 [[ -f "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh" ]] && source "$HOME/Github/multi-agentic-ai-cli/scripts/multi-agent-ask.sh"
 ```
-- Environment via `.env`:
-  - Copy `.env.example` to `.env`, customize values, then add to `~/.zshrc`:
-```
-set -a
-[ -f "$HOME/Github/multi-agentic-ai-cli/.env" ] && source "$HOME/Github/multi-agentic-ai-cli/.env"
-set +a
-```
 
 ## Usage
 - `Ask "Your prompt"` — parallel stream with spinner + per‑model timings
@@ -98,23 +91,12 @@ When CLIs are routed via a corporate gateway (e.g., LiteLLM), all CLIs can be us
 Example:
 ```
 export ASK_HEADER_FORMAT=cli_model
-# Corp base URL
-export OPENAI_API_BASE="https://api.studio.genai.cba"
-export OPENAI_BASE_URL="https://api.studio.genai.cba"
-export ANTHROPIC_BASE_URL="https://api.studio.genai.cba"
-export GOOGLE_GEMINI_BASE_URL="https://api.studio.genai.cba"
 # Models
 export ASK_MODEL_CODEX="gpt-5"
 export ASK_MODEL_GEMINI="gemini-pro"
 export ASK_MODEL_FLASH="gemini-2.0-flash-001"
 export ASK_MODEL_COPILOT="gpt-5"
 export ASK_MODEL_CLAUDE="claude-4"
-```
-- Optional: use `.env` for corp:
-```
-set -a
-[ -f "$HOME/Github/multi-agentic-ai-cli/.env" ] && source "$HOME/Github/multi-agentic-ai-cli/.env"
-set +a
 ```
 
 ## Workflow Diagram
