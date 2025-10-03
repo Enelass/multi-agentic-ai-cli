@@ -3,9 +3,10 @@
 Zsh functions to query multiple LLM CLIs in parallel:
 - codex (OpenAI Codex CLI)
 - gemini (Google Gemini CLI)
-- gemini flash (2.0-flash-001)
+- flash (2.0-flash-001)
 - copilot (GitHub Copilot CLI)
 - claude (Claude Code)
+
 
 ## Why this project
 Different CLIs ship with their own system instructions, defaults, tools, and prompting UX. Running multiple CLIs in parallel for the same prompt yields diverse answers and behaviors. This lets you:
