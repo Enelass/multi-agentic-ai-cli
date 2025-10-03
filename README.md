@@ -99,25 +99,11 @@ export ASK_MODEL_COPILOT="gpt-5"
 export ASK_MODEL_CLAUDE="claude-4"
 ```
 
-## Workflow Diagram
-```mermaid
-flowchart TD
-    A[User Prompt] --> B[Ask (parallel)]
-    B --> C{Launch CLIs}
-    C --> C1[codex]
-    C --> C2[gemini]
-    C --> C3[gemini flash]
-    C --> C4[copilot]
-    C --> C5[claude]
-    C1 --> D1[Spinner updates ⏳ → ✓]
-    C2 --> D1
-    C3 --> D1
-    C4 --> D1
-    C5 --> D1
-    D1 --> E[Per‑model block with timing]
-    E --> F[AskColumns (two‑column summary)]
-    F --> G[Compare, retain, or collate]
-```
+## Workflow
+1. `Ask` launches all CLIs in parallel and displays a single spinner line with per‑model status.
+2. As each model completes, `Ask` prints a header (CLI‑first) with inline timing and the trimmed output block.
+3. `AskColumns` renders a two‑column summary: Codex|Gemini, Claude|Copilot, plus a Flash‑only row.
+4. You compare outputs, retain the best answer, or collate complementary parts.
 
 ## Customization
 Top of `scripts/multi-agent-ask.sh`:
